@@ -160,8 +160,11 @@ const AIAdvisoryInterface = () => {
     const messageText = inputMessage.trim();
     const extractedIds = extractIds(messageText);
     
-    // Check if we have both IDs
-    if (!extractedIds.companyId || !extractedIds.userId) {
+    // Check if we have both IDs - only show popup if either is missing
+    const missingCompanyId = !extractedIds.companyId;
+    const missingUserId = !extractedIds.userId;
+    
+    if (missingCompanyId || missingUserId) {
       setPendingMessage(messageText);
       setShowIdDialog(true);
       return;
